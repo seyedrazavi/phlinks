@@ -10,28 +10,36 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+<fieldset>
+  <p class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
-  </div>
+  </p>
 
-  <div class="field">
+  <p class="field">
     <%= form.label :url %>
     <%= form.text_field :url %>
-  </div>
+  </p>
 
-  <div class="field">
+  <p class="field">
     <%= form.label :posted_at %>
     <%= form.datetime_select :posted_at %>
-  </div>
+  </p>
 
-  <div class="field">
-    <%= form.label :user %>
-    <%= form.text_field :user %>
-  </div>
+  <p class="field">
+    <%= form.label :user_name %>
+    <%= form.text_field :user_name %>
+  </p>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <p class="field">
+    <%= form.label :user_screenname %>
+    <%= form.text_field :user_screenname %>
+  </p>
+
+  <p class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+    <%= link_to 'Fetch Title', fetch_link_path(@link), class: 'btn btn-secondary' %>
+  </p>
+<fieldset>
+
 <% end %>

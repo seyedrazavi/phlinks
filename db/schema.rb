@@ -16,10 +16,12 @@ ActiveRecord::Schema.define(version: 2019_08_29_153214) do
   enable_extension "plpgsql"
 
   create_table "links", force: :cascade do |t|
+    t.string "tweet_id"
     t.string "title"
     t.string "url"
     t.datetime "posted_at"
-    t.string "user"
+    t.string "user_name"
+    t.string "user_screenname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

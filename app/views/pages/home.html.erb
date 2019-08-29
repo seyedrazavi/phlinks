@@ -1,6 +1,6 @@
 <div class="home">
-	<h1>phlinks - Links from #philosophy Twitter</h1>
-	<p class="lead"><% if @links.any? %>Last refreshed <%=@links.first.created_at%><% end %></p>
+	<h1>Links from #philosophy Twitter</h1>
+	<p class="lead"><% if @links.any? %><%=@links.count%> links. Last refreshed <%=@links.first.created_at%><% end %></p>
 
 	<table class="table">
 	  <thead>
@@ -9,14 +9,20 @@
 	      <th scope="col">Article</th>
 	      <th scope="col">User</th>
 	      <th scope="col">Posted</th>
+	      <th scope="col"></th>
 	    </tr>
 	  </thead>
 	  <tbody>
+	  	<% n = 0 %>
 		<% @links.each do |link| %>
+		<% n += 1 %>
 		<tr>
-			<td><a href="<%=link.url%>"><%=link.title%></a></td>
-			<td><a href="https://twitter.com/<%=link.user%>">@<%=link.user%></a></td>
+			<td><%=n%></td>
+			<td><a href="<%=link.url%>" target="_link"><%=link.title%></a></td>
+			<td><a href="https://twitter.com/<%=link.user_screenname%>"><%=link.user_name%></a></td>
 			<td><%=link.posted_at%></td>
+			<td><%= link_to "&#9998;".html_safe, edit_link_path(link) %></td>
+			<td><%= link_to "&#x274C;".html_safe, link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 		</tr>
 		<% end %>
 	  </tbody>
