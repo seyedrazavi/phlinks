@@ -1,0 +1,23 @@
+<div class="home">
+	<h1>phlinks - Links from #philosophy Twitter</h1>
+	<p class="lead"><% if @links.any? %>Last refreshed <%=@links.first.created_at%><% end %></p>
+
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Article</th>
+	      <th scope="col">User</th>
+	      <th scope="col">Posted</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+		<% @links.each do |link| %>
+		<tr>
+			<td><a href="<%=link.url%>"><%=link.title%></a></td>
+			<td><a href="https://twitter.com/<%=link.user%>">@<%=link.user%></a></td>
+			<td><%=link.posted_at%></td>
+		</tr>
+		<% end %>
+	  </tbody>
+</div>

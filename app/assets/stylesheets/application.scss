@@ -1,0 +1,11 @@
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+
+body {
+  padding-top: 5rem;
+}
+
+.home {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
