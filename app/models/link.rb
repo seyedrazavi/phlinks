@@ -24,7 +24,7 @@ class Link < ApplicationRecord
 			urls = URI.extract(text)
 			urls = urls.select{|uri| uri && (uri.starts_with?("https://") || uri.starts_with?("http://"))}
 			urls = urls.map{|url| resolved_url(url)}
-			urls = urls.select{|url| !url.starts_with?("https://twitter.com")}
+			urls = urls.select{|url| url && !url.starts_with?("https://twitter.com")}
 			urls.each do |url|
 				unless Link.where({url: url}).count > 0
 					title = get_title(url)
