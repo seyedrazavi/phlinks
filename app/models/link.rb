@@ -8,7 +8,11 @@ class Link < ApplicationRecord
 	validates :user_name, presence: true
 	validates :user_screenname, presence: true
 
-	# TODO capture tweet id and 
+	# deleted
+
+	def self.all_but_deleted
+		where({deleted: false}).order('created_at ASC')
+	end
 
 	def self.fetch_links
 		links = []
@@ -56,6 +60,16 @@ class Link < ApplicationRecord
 		self.url = new_url unless new_url.nil?
 		new_title = Link.get_title(self.url)
 		self.title = new_title unless new_title.nil?
+		save!
+	end
+
+	def delete!
+		self.deleted = true
+		save!
+	end
+
+	def undelete!
+		self.deleted = false
 		save!
 	end
 

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def home
-  	@links = Link.all.order('created_at DESC')
+  	@links = Link.all_but_deleted
   end
 end

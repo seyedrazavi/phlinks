@@ -5859,3 +5859,161 @@ Processing by PagesController#home as HTML
 Completed 200 OK in 125ms (Views: 117.3ms | ActiveRecord: 5.8ms)
 
 
+  [1m[35m (31.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7672313669865253920)[0m
+  ↳ bin/rails:9
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to AddSoftDelete (20190829234918)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (30.8ms)[0m  [1m[35mALTER TABLE "links" ADD "deleted" boolean[0m
+  ↳ db/migrate/20190829234918_add_soft_delete.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190829234918"]]
+  ↳ bin/rails:9
+  [1m[35m (19.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (5.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(7672313669865253920)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Started GET "/" for ::1 at 2019-08-30 00:55:12 +0100
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/seyedrazavi/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by PagesController#home as HTML
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mLink Exists (6.8ms)[0m  [1m[34mSELECT  1 AS one FROM "links" WHERE "links"."deleted" = $1 LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (1.4ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at ASC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:17
+  Rendered pages/home.html.erb within layouts/application (12.7ms)
+  Rendered layouts/_nav.html.erb (0.3ms)
+Completed 200 OK in 788ms (Views: 763.8ms | ActiveRecord: 9.3ms)
+
+
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "links"[0m
+  [1m[36mLink Load (0.3ms)[0m  [1m[34mSELECT  "links".* FROM "links" ORDER BY "links"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mLink Update All (14.6ms)[0m  [1m[33mUPDATE "links" SET "deleted" = FALSE[0m
+Started GET "/" for ::1 at 2019-08-30 00:57:06 +0100
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/seyedrazavi/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by PagesController#home as HTML
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:14: syntax error, unexpected tSTRING_DEND, expecting ')'
+		where(deleted: false}).order('created_at ASC')
+		                    ^
+/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:20: syntax error, unexpected tSTRING_DEND, expecting '}'
+..._options = {count: FETCH_COUNT}
+...                              ^
+/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:29: syntax error, unexpected tSTRING_DEND, expecting '}'
+...| uri.starts_with?("http://"))}
+...                              ^
+/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:30: syntax error, unexpected tSTRING_DEND, expecting '}'
+...ls.map{|url| resolved_url(url)}
+...                              ^
+/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:31: syntax error, unexpected tSTRING_DEND, expecting '}'
+...s_with?("https://twitter.com")}
+...                              ^
+/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:33: syntax error, unexpected tSTRING_DEND, expecting '}'
+...			unless Link.where({url: url}).count > 0
+...			                           ^
+/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:39: syntax error, unexpected tSTRING_DEND, expecting '}'
+...reenname, posted_at: posted_at} unless url.nil? || title.nil?
+...                              ^
+/Users/seyedrazavi/Documents/phlinks/app/models/link.rb:106: syntax error, unexpected end, expecting end-of-input):
+  
+app/models/link.rb:14: syntax error, unexpected tSTRING_DEND, expecting ')'
+app/models/link.rb:20: syntax error, unexpected tSTRING_DEND, expecting '}'
+app/models/link.rb:29: syntax error, unexpected tSTRING_DEND, expecting '}'
+app/models/link.rb:30: syntax error, unexpected tSTRING_DEND, expecting '}'
+app/models/link.rb:31: syntax error, unexpected tSTRING_DEND, expecting '}'
+app/models/link.rb:33: syntax error, unexpected tSTRING_DEND, expecting '}'
+app/models/link.rb:39: syntax error, unexpected tSTRING_DEND, expecting '}'
+app/models/link.rb:106: syntax error, unexpected end, expecting end-of-input
+app/controllers/pages_controller.rb:3:in `home'
+Started GET "/" for ::1 at 2019-08-30 00:57:23 +0100
+Processing by PagesController#home as HTML
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mLink Exists (7.4ms)[0m  [1m[34mSELECT  1 AS one FROM "links" WHERE "links"."deleted" = $1 LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "links" WHERE "links"."deleted" = $1[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.7ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at ASC LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (1.1ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at ASC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:17
+  Rendered pages/home.html.erb within layouts/application (31.1ms)
+  Rendered layouts/_nav.html.erb (0.3ms)
+Completed 200 OK in 603ms (Views: 563.1ms | ActiveRecord: 15.4ms)
+
+
+Started DELETE "/links/4" for ::1 at 2019-08-30 00:57:29 +0100
+Processing by LinksController#destroy as HTML
+  Parameters: {"authenticity_token"=>"Xd9A2QeHsAZlUke8S+CIY2cvm781i48IxpmsN1MgFJfNjna80WpG4kJUMmMUwGoz2MgK9hJ91CHRaauma4YfVQ==", "id"=>"4"}
+  [1m[36mLink Load (0.7ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/links_controller.rb:43
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/link.rb:68
+  [1m[36mLink Update (0.6ms)[0m  [1m[33mUPDATE "links" SET "deleted" = $1, "updated_at" = $2 WHERE "links"."id" = $3[0m  [["deleted", true], ["updated_at", "2019-08-29 23:57:29.753917"], ["id", 4]]
+  ↳ app/models/link.rb:68
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/link.rb:68
+Redirected to http://localhost:3000/
+Completed 302 Found in 24ms (ActiveRecord: 14.2ms)
+
+
+Started GET "/" for ::1 at 2019-08-30 00:57:29 +0100
+Processing by PagesController#home as HTML
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mLink Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "links" WHERE "links"."deleted" = $1 LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "links" WHERE "links"."deleted" = $1[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.5ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at ASC LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.3ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at ASC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:17
+  Rendered pages/home.html.erb within layouts/application (7.8ms)
+  Rendered layouts/_nav.html.erb (0.4ms)
+Completed 200 OK in 48ms (Views: 45.2ms | ActiveRecord: 1.8ms)
+
+
+Started DELETE "/links/12" for ::1 at 2019-08-30 00:57:38 +0100
+Processing by LinksController#destroy as HTML
+  Parameters: {"authenticity_token"=>"VpSWmLiGf+NQX87cDfrV9wdQKvFEd1Z4yMeYYK7h2E7GxaD9bmuJB3dZuwNS2jenuLe7uGOBDVHfN5/xlkfTjA==", "id"=>"12"}
+  [1m[36mLink Load (0.4ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/links_controller.rb:43
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/link.rb:68
+  [1m[36mLink Update (0.9ms)[0m  [1m[33mUPDATE "links" SET "deleted" = $1, "updated_at" = $2 WHERE "links"."id" = $3[0m  [["deleted", true], ["updated_at", "2019-08-29 23:57:38.157668"], ["id", 12]]
+  ↳ app/models/link.rb:68
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/link.rb:68
+Redirected to http://localhost:3000/
+Completed 302 Found in 7ms (ActiveRecord: 2.1ms)
+
+
+Started GET "/" for ::1 at 2019-08-30 00:57:38 +0100
+Processing by PagesController#home as HTML
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mLink Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "links" WHERE "links"."deleted" = $1 LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "links" WHERE "links"."deleted" = $1[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.6ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at ASC LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.5ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at ASC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:17
+  Rendered pages/home.html.erb within layouts/application (11.0ms)
+  Rendered layouts/_nav.html.erb (0.3ms)
+Completed 200 OK in 50ms (Views: 45.9ms | ActiveRecord: 2.4ms)
+
+

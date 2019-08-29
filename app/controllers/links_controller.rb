@@ -30,7 +30,7 @@ class LinksController < ApplicationController
   # DELETE /links/1
   # DELETE /links/1.json
   def destroy
-    @link.destroy
+    @link.delete!
     respond_to do |format|
       format.html { redirect_to request.referer }
       format.json { head :no_content }
