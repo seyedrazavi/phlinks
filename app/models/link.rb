@@ -67,6 +67,8 @@ class Link < ApplicationRecord
 		  uri.open(redirect: false)
 		rescue OpenURI::HTTPRedirect => redirect
 		  uri = redirect.uri # assigned from the "Location" response header
+		rescue OpenURI::HTTPError => e
+			return nil
 		end
 		uri.to_s
 	end
