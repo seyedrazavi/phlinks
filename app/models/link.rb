@@ -11,7 +11,7 @@ class Link < ApplicationRecord
 	# deleted
 
 	def self.all_but_deleted
-		where({deleted: false}).order('created_at ASC')
+		where({deleted: false}).order('created_at DESC')
 	end
 
 	def self.fetch_links
