@@ -63,12 +63,12 @@ class Link < ApplicationRecord
 		save!
 	end
 
-	def delete!
+	def soft_delete!
 		self.deleted = true
 		save!
 	end
 
-	def undelete!
+	def soft_undelete!
 		self.deleted = false
 		save!
 	end
