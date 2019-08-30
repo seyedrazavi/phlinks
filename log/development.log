@@ -6066,3 +6066,71 @@ Processing by PagesController#home as HTML
 Completed 200 OK in 73ms (Views: 70.1ms | ActiveRecord: 1.6ms)
 
 
+Started GET "/" for ::1 at 2019-08-30 17:37:20 +0100
+  [1m[35m (5.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/seyedrazavi/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by PagesController#home as HTML
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mLink Exists (9.1ms)[0m  [1m[34mSELECT  1 AS one FROM "links" WHERE "links"."deleted" = $1 LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "links" WHERE "links"."deleted" = $1[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.8ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (1.0ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:17
+  Rendered pages/home.html.erb within layouts/application (56.8ms)
+  Rendered layouts/_nav.html.erb (0.4ms)
+Completed 200 OK in 851ms (Views: 805.9ms | ActiveRecord: 24.0ms)
+
+
+Started GET "/" for ::1 at 2019-08-30 17:37:55 +0100
+Processing by PagesController#home as HTML
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mLink Exists (2.9ms)[0m  [1m[34mSELECT  1 AS one FROM "links" WHERE "links"."deleted" = $1 LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "links" WHERE "links"."deleted" = $1[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (1.0ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (1.8ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:17
+  Rendered pages/home.html.erb within layouts/application (21.0ms)
+  Rendered layouts/_nav.html.erb (0.4ms)
+Completed 200 OK in 105ms (Views: 97.6ms | ActiveRecord: 6.3ms)
+
+
+Started GET "/" for ::1 at 2019-08-30 17:38:21 +0100
+Processing by PagesController#home as HTML
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mLink Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "links" WHERE "links"."deleted" = $1 LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "links" WHERE "links"."deleted" = $1[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.5ms)[0m  [1m[34mSELECT  "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC LIMIT $2[0m  [["deleted", false], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:3
+  [1m[36mLink Load (0.4ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.html.erb:17
+  Rendered pages/home.html.erb within layouts/application (14.9ms)
+  Rendered layouts/_nav.html.erb (0.3ms)
+Completed 200 OK in 80ms (Views: 77.1ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/?format=rss" for ::1 at 2019-08-30 17:38:23 +0100
+Processing by PagesController#home as RSS
+  Rendering pages/home.rss.builder
+  [1m[36mLink Load (1.5ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.rss.builder:8
+  Rendered pages/home.rss.builder (47.3ms)
+Completed 200 OK in 50ms (Views: 47.6ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/?format=rss" for ::1 at 2019-08-30 17:38:23 +0100
+Processing by PagesController#home as RSS
+  Rendering pages/home.rss.builder
+  [1m[36mLink Load (3.3ms)[0m  [1m[34mSELECT "links".* FROM "links" WHERE "links"."deleted" = $1 ORDER BY created_at DESC[0m  [["deleted", false]]
+  ↳ app/views/pages/home.rss.builder:8
+  Rendered pages/home.rss.builder (9.7ms)
+Completed 200 OK in 13ms (Views: 7.9ms | ActiveRecord: 3.3ms)
+
+

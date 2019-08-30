@@ -1,5 +1,5 @@
 <div class="home">
-	<h1>Links from #philosophy Twitter</h1>
+	<h1>Links from #philosophy Twitter <%=link_to image_tag('rss'), root_url(:format => :rss)%></h1>
 	<p class="lead"><% if @links.any? %><%=@links.count%> links. Last refreshed <%=@links.first.created_at%><% end %></p>
 
 	<table class="table">
