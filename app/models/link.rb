@@ -47,7 +47,7 @@ class Link < ApplicationRecord
 		links = fetch_links
 		logger.info "Found #{links.count} new links"
 		links.each do |link|
-			create!(tweet_id: link[:id], title: link[:title], url: link[:url], posted_at: link[:posted_at], user_name: link[:user_name], user_screenname: link[:user_screenname])
+			create!(tweet_id: link[:id], title: link[:title], url: link[:url], posted_at: link[:posted_at], user_name: link[:user_name], user_screenname: link[:user_screenname], deleted: false)
 		end
 	end
 
