@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Phlinks - Links from #philosophy Twitter</title>
+    <title>Phlinks - links from philosophy Twitter</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -41,7 +41,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
-    <%= auto_discovery_link_tag :rss, root_url(:format => :rss) %>
+    <%= auto_discovery_link_tag :rss, {root_url(:format => :rss)}, {title: "phlinks - links from philosophy Twitter"} %>
   </head>
 
   <body>
