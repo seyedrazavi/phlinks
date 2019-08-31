@@ -1,4 +1,4 @@
-# Project
+# phlinks
 
 [phlinks.herokuapp.com](https://phlinks.herokuapp.com/)
 
@@ -51,8 +51,8 @@ rails fetch
 Using [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli):
 
 ```shell
-heroku git:remote -a project
-heroku git:remote --remote heroku-staging -a project-staging
+heroku git:remote -a phlinks
+heroku git:remote --remote heroku-staging -a phlinks-staging
 ```
 
 ## Serve
@@ -74,7 +74,7 @@ git push heroku-staging
 Go to the Heroku Dashboard and [promote the app to production](https://devcenter.heroku.com/articles/pipelines) or use Heroku CLI:
 
 ```shell
-heroku pipelines:promote -a project-staging
+heroku pipelines:promote -a phlinks-staging
 ```
 
 ### Directly to production (not recommended)
