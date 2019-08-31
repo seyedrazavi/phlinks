@@ -41,7 +41,8 @@ class Link < ApplicationRecord
 	def self.create_link!(link_hash)
 		create!(tweet_id: link_hash[:id], title: link_hash[:title], url: link_hash[:url], 
 			posted_at: link_hash[:posted_at], user_name: link_hash[:user_name], 
-			user_screenname: link_hash[:user_screenname], deleted: false)
+			user_screenname: link_hash[:user_screenname], description: link_hash[:full_text],
+			deleted: false)
 	end
 
 
