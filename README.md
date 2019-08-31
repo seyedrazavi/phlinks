@@ -42,7 +42,7 @@ See [config/application.yml.sample](https://github.com/seyedrazavi/phlinks/maste
 ### Initialize the database
 
 ```shell
-rails db:create db:migrat
+rails db:create db:migrate
 rails fetch
 ```
 
