@@ -60,3 +60,5 @@ gem 'twitter'
 gem 'figaro'
 
 gem 'pismo'
+
+gem 'sidekiq'

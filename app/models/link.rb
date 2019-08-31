@@ -8,52 +8,111 @@ class Link < ApplicationRecord
 	validates :user_name, presence: true
 	validates :user_screenname, presence: true
 
+	FILTER_OUT_URLS = ["https://twitter.com", # self-reference
+		# low quality
+		"https://curiouscat.me",
+		# paywalls
+		"https://on.ft.com", "https://www.ft.com/", "https://www.wired.com"]
+
+	FILTER_OUT_TITLES = ["403 Forbidden", "404 Not Found", "503 Service Unavailable"]
+
 	# deleted
+
+	#
+	# CLass functions
+	#
 
 	def self.all_but_deleted
 		where({deleted: false}).order('created_at DESC')
 	end
 
-	def self.fetch_links
-		links = []
-		last_link = Link.order('created_at ASC').first
+	def self.fetch!(async=true)
+		tweets = fetch_tweets
+		tweets.each do |tweet|
+			if async
+				FetchUrlJob.perform_later (tweet_to_hash(tweet))
+			else
+				Link.fetch_url!(tweet_to_hash(tweet))
+			end
+		end
+		logger.info "Found #{tweets.count} tweets"
+	end
+
+	def self.create_link!(link_hash)
+		create!(tweet_id: link_hash[:id], title: link_hash[:title], url: link_hash[:url], 
+			posted_at: link_hash[:posted_at], user_name: link_hash[:user_name], 
+			user_screenname: link_hash[:user_screenname], deleted: false)
+	end
+
+
+	private
+	
+	def self.fetch_url!(tweet_hash)
+		parsed_tweet = parse_tweet(tweet_hash)
+		if parsed_tweet[0]
+			logger.info "Creating #{parsed_tweet[0]}..."
+			link = create_link!(parsed_tweet[1]) 
+			logger.info "done"
+		else
+			logger.debug "#{tweet_hash}: #{parsed_tweet[1]}"
+		end
+	end
+
+	def self.parse_tweet(tweet_hash)
+		error = nil
+		text = tweet_hash[:full_text]
+		logger.debug text
+		urls = URI.	extract(text)
+		urls = urls.select{|uri| uri && (uri.starts_with?("https://") || uri.starts_with?("http://"))}
+		return false, "No URLs in tweet" unless urls.count > 0
+		urls = urls.map{|url| resolved_url(url)}
+		return false, "URLs in tweet could not be resolved" unless urls.count > 0
+		urls = urls.select{|url| url && !FILTER_OUT_URLS.any?{|f| url.starts_with?(f)}}
+		return false, "URLs in tweet where filted out" unless urls.count > 0
+		urls.each do |url|
+			unless Link.where({url: url}).count > 0
+				title = get_title(url)
+				if title.blank?
+					error = "Page title is blank" 
+				elsif FILTER_OUT_TITLES.any?{|f| title.starts_with?(f)}
+					error = "Page title was filtered out"
+				else
+					return true, tweet_hash.merge({url: url, title: title})
+				end
+			end
+		end
+		return false, error
+	end
+
+	def self.fetch_tweets
+		tweets = []
+		last_link = Link.order('created_at DESC').first
 		timeline_options = {count: FETCH_COUNT}
 		if last_link
 			timeline_options[since_id: last_link.tweet_id]
 		end
 
 		TWITTER.list_timeline("philosophers", timeline_options).each do |tweet|
-			text = tweet.full_text
-			logger.debug text
-			urls = URI.extract(text)
-			urls = urls.select{|uri| uri && (uri.starts_with?("https://") || uri.starts_with?("http://"))}
-			urls = urls.map{|url| resolved_url(url)}
-			urls = urls.select{|url| url && !url.starts_with?("https://twitter.com")}
-			urls.each do |url|
-				unless Link.where({url: url}).count > 0
-					title = get_title(url)
-					posted_at = tweet.created_at
-					user_name = tweet.user.name
-					user_screenname = tweet.user.screen_name
-					logger.info "##{tweet.id} #{title} <#{url}> by #{user_name} <@#{user_screenname}> on #{posted_at}"
-					links << {id: tweet.id, url: url, title: title, user_name: user_name, user_screenname: user_screenname, posted_at: posted_at} unless url.nil? || title.nil?
-				end
-			end
+			logger.debug tweet
+			tweets << tweet
 		end
-		links
+		tweets
 	end
-	
-	def self.fetch!
-		links = fetch_links
-		logger.info "Found #{links.count} new links"
-		links.each do |link|
-			create!(tweet_id: link[:id], title: link[:title], url: link[:url], posted_at: link[:posted_at], user_name: link[:user_name], user_screenname: link[:user_screenname], deleted: false)
-		end
+
+	def self.tweet_to_hash(tweet)
+		{id: tweet.id, full_text: tweet.full_text, posted_at: tweet.created_at.to_s, 
+				user_name: tweet.user.name, user_screenname: tweet.user.screen_name}
 	end
 
 	def self.clean_up!
 		where("created_at < NOW() - INTERVAL '30 days'").delete_all
 	end
+
+	#
+	# Member functions
+	# 
+
+	public 
 
 	def update_title!
 		new_url = Link.resolved_url(self.url)
