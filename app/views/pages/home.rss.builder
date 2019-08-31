@@ -10,6 +10,7 @@ xml.rss "version" => "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
       xml.item do
         xml.title link.title
         xml.pubDate link.posted_at.to_s(:rfc822)
+        xml.description link.description
         xml.link link.url
         xml.guid link.url
       end
