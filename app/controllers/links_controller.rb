@@ -10,7 +10,7 @@ class LinksController < ApplicationController
   # GET /links/1/fetch
   def fetch
     @link.update_title!
-    redirect_to request.referer
+    redirect_to "#{root_url}?admin=y"
   end
 
   # PATCH/PUT /links/1
@@ -18,7 +18,7 @@ class LinksController < ApplicationController
   def update
     respond_to do |format|
       if @link.update(link_params)
-        format.html { redirect_to root_url }
+        format.html { redirect_to "#{root_url}?admin=y" }
         format.json { render :show, status: :ok, location: @link }
       else
         format.html { render :edit }
@@ -32,7 +32,7 @@ class LinksController < ApplicationController
   def destroy
     @link.soft_delete!
     respond_to do |format|
-      format.html { redirect_to request.referer }
+      format.html { redirect_to "#{root_url}?admin=y" }
       format.json { head :no_content }
     end
   end
