@@ -1,4 +1,4 @@
-<% cache link, expires_in: 10.minutes do %>
+<% cache_unless admin_mode, link, expires_in: 10.minutes do %>
 <tr>
 	<th scope="row"><%=n%></th>
 	<td><a href="<%=link.url%>" target="_link"  data-toggle="tooltip" data-placement="top" title="<%=link.description%>"><%=link.title%></a></td>
