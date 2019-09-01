@@ -9,7 +9,9 @@
 	      <th scope="col">Article</th>
 	      <th scope="col">User</th>
 	      <th scope="col">Posted</th>
-	      <th scope="col"></th>
+	      <% if @admin_mode %>
+	      <th scope="col" colspan="2"></th>
+	      <% end %>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -21,13 +23,15 @@
 			<td><a href="<%=link.url%>" target="_link"  data-toggle="tooltip" data-placement="top" title="<%=link.description%>"><%=link.title%></a></td>
 			<td><a href="https://twitter.com/<%=link.user_screenname%>"><%=link.user_name%></a></td>
 			<td><%=link.posted_at%></td>
+			<% if @admin_mode %>
 			<td><%= link_to "&#9998;".html_safe, edit_link_path(link) %></td>
 			<td><%= link_to "&#x274C;".html_safe, link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			<% end %>
 		</tr>
 		<% end %>
 	  </tbody>
 	</table>
-
+<p><%=link_to 'About', pages_url %></p>
 <p><%=link_to image_tag('valid-rss-rogers.png', alt: "[Valid RSS]", title: "Validate my RSS feed"), "https://validator.w3.org/feed/check.cgi?url=https%3A//phlinks.herokuapp.com/%3Fformat%3Drss" %></p>
 <p><%=link_to image_tag('github.png', alt: "Available on Github", title: "Available on Github"), "https://github.com/seyedrazavi/phlinks" %></p>
 </div>
