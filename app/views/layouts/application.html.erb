@@ -42,6 +42,17 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
     <%= auto_discovery_link_tag(:rss, root_url(:format => :rss), title: "phlinks - links from philosophy Twitter")%>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%=ENV['google_analytics_ua']%>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<%=ENV['google_analytics_ua']%>');
+    </script>
+
   </head>
 
   <body>
