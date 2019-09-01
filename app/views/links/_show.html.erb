@@ -1,0 +1,12 @@
+<% cache link, expires_in: 10.minutes do %>
+<tr>
+	<th scope="row"><%=n%></th>
+	<td><a href="<%=link.url%>" target="_link"  data-toggle="tooltip" data-placement="top" title="<%=link.description%>"><%=link.title%></a></td>
+	<td><a href="https://twitter.com/<%=link.user_screenname%>"><%=link.user_name%></a></td>
+	<td><%=link.posted_at%></td>
+	<% if admin_mode %>
+	<td><%= link_to "&#9998;".html_safe, edit_link_path(link) %></td>
+	<td><%= link_to "&#x274C;".html_safe, link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<% end %>
+</tr>
+<% end %> 

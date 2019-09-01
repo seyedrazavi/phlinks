@@ -62,3 +62,7 @@ gem 'figaro'
 gem 'pismo'
 
 gem 'sidekiq'
+
+gem 'redis'
+
+gem 'hiredis'

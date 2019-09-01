@@ -1,6 +1,7 @@
 <div class="home">
 	<h1>Links from philosophy Twitter <%=link_to image_tag('rss.png'), root_url(:format => :rss)%></h1>
 	<p class="lead"><% if @links.any? %><%=@links.count%> links. Last refreshed <%=@links.first.created_at%><% end %></p>
+	
 	<div class="table-responsive">
 		<table class="table table-striped w-auto">
 		  <thead>
@@ -18,16 +19,7 @@
 		  	<% n = 0 %>
 			<% @links.each do |link| %>
 			<% n += 1 %>
-			<tr>
-				<th scope="row"><%=n%></th>
-				<td><a href="<%=link.url%>" target="_link"  data-toggle="tooltip" data-placement="top" title="<%=link.description%>"><%=link.title%></a></td>
-				<td><a href="https://twitter.com/<%=link.user_screenname%>"><%=link.user_name%></a></td>
-				<td><%=link.posted_at%></td>
-				<% if @admin_mode %>
-				<td><%= link_to "&#9998;".html_safe, edit_link_path(link) %></td>
-				<td><%= link_to "&#x274C;".html_safe, link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-				<% end %>
-			</tr>
+			<%=render partial: '/links/show', locals: {n: n, link: link, admin_mode: @admin_mode}, cached: !@admin_mode %>
 			<% end %>
 		  </tbody>
 		</table>
