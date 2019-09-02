@@ -66,3 +66,5 @@ gem 'sidekiq'
 gem 'redis'
 
 gem 'hiredis'
+
+gem 'pocket-ruby'

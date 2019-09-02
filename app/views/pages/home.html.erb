@@ -2,6 +2,12 @@
 	<h1>Links from philosophy Twitter <%=link_to image_tag('rss.png'), root_url(:format => :rss)%></h1>
 	<p class="lead"><% if @links.any? %><%=@links.count%> links. Last refreshed <%=@links.first.created_at%><% end %></p>
 	
+	<% flash.each do |key, value| %>
+        <div class="<%= flash_class(key) %>">
+              <%= value.html_safe %>
+        </div>
+  	<% end %>
+      
 	<div class="table-responsive">
 		<table class="table table-striped w-auto">
 		  <thead>
@@ -10,6 +16,7 @@
 		      <th scope="col">Article</th>
 		      <th scope="col">User</th>
 		      <th scope="col">Posted</th>
+		      <th scope="col"></th>
 		      <% if @admin_mode %>
 		      <th scope="col" colspan="2"></th>
 		      <% end %>

@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+
   def home
   	@links = Link.all_but_deleted
   	@admin_mode = params[:admin]
