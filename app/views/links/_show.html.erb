@@ -3,7 +3,7 @@
 	<th scope="row"><%=n%></th>
 	<td><a href="<%=link.url%>" target="_link"  data-toggle="tooltip" data-placement="top" title="<%=link.description%>"><%=link.title%></a></td>
 	<td><a href="https://twitter.com/<%=link.user_screenname%>"><%=link.user_name%></a></td>
-	<td><%=link.posted_at%></td>
+	<td><small><%=distance_of_time_in_words_to_now(link.posted_at)%> ago</small></td>
 	<td>
 		<%=link_to image_tag('pocket.png', alt: '[Add to Pocket]', title: 'Add to Pocket'), pocket_add_url(url: link.url, title: link.title) %>
 	</td>
