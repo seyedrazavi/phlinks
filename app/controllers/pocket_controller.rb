@@ -18,12 +18,16 @@ class PocketController < ApplicationController
 		puts "OAUTH CALLBACK"
 		puts "request.url: #{request.url}"
 		puts "request.body: #{request.body.read}"
-		result = Pocket.get_result(session[:code], :redirect_uri => callback_url)
-		puts "access_token: #{result['access_token']}"
-		puts "username: #{result['username']}"
-		session[:access_token] = result['access_token']
-		if session[:link_url]
-			save_to_pocket(session[:access_token], session[:link_url], session[:link_title])
+		begin
+			result = Pocket.get_result(session[:code], :redirect_uri => callback_url)
+			puts "access_token: #{result['access_token']}"
+			puts "username: #{result['username']}"
+			session[:access_token] = result['access_token']
+			if session[:link_url]
+				save_to_pocket(session[:access_token], session[:link_url], session[:link_title])
+			end
+		rescue
+			flash[:error] = "Could not connect to Pocket"
 		end
 		redirect_to root_url
 	end
@@ -43,7 +47,7 @@ class PocketController < ApplicationController
 		client = Pocket.client(:access_token => access_token)
 		info = client.add :url => url
 		puts info
-		flash[:notice] = "Saved \"<a href=\"#{url}\" target=\"_new\">#{title}</a>\" to pocket"
+		flash[:notice] = "Saved \"<a href=\"#{url}\" target=\"_new\">#{title}</a>\" to Pocket"
 	end
 
 	def set_access_token
