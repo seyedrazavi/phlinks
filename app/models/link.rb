@@ -14,9 +14,13 @@ class Link < ApplicationRecord
 		# paywalls
 		"https://on.ft.com", "https://www.ft.com/", "https://www.wired.com"]
 
-	FILTER_OUT_TITLES = ["Unknown", "redirection forbidden", "403 Forbidden", "404 Not Found", 
-		"416 Requested Range Not Satisfiable", "429 Too Many Requests", "503 Service Unavailable",
-		"LISTSERV 16.0 - PHILOS-L Archives"]
+	FILTER_OUT_TITLES = ["Unknown", "redirection forbidden", "HTTP redirection loop",
+		"400 Bad Request", "403 Forbidden", "404 Not Found", 
+		"416 Requested Range Not Satisfiable", "429 Too Many Requests", 
+		"500 Internal Server Error", "502 Bad Gateway",
+		"503 Service Unavailable", "Error - Cookies Turned Off",
+		"Login • Instagram", "LISTSERV 16.0 - PHILOS-L Archives",
+		"Loading seems to be taking a while"]
 
 	# deleted
 
