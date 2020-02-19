@@ -266,7 +266,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pismo
   pocket-ruby
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.3)
   redis
   sass-rails (~> 5.0)
@@ -283,4 +283,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   1.17.3
+   1.17.2
