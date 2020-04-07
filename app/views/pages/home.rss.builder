@@ -6,7 +6,7 @@ xml.rss "version" => "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
     xml.link root_url
     xml.tag!("atom:link", "href" => root_url(:format => :rss), "rel" => "self", "type" => "application/rss+xml")
 
-    @links.each do |link|
+    @links.limit(100).each do |link|
       xml.item do
         xml.title link.title
         xml.pubDate link.posted_at.to_s(:rfc822)
