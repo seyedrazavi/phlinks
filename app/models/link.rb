@@ -52,9 +52,7 @@ class Link < ApplicationRecord
 	end
 
 	def self.delete_duplicates!
-		self.all.for_each do |link|
-			where(["url = ? AND id <> ?", link.url, link.id]).delete_all
-		end
+		Link.find_each{|link| Link.where(["url = ? AND id <> ?", link.url, link.id]).delete_all}
 	end
 
 	private
