@@ -68,3 +68,5 @@ gem 'redis'
 gem 'hiredis'
 
 gem 'pocket-ruby'
+
+gem 'kaminari'

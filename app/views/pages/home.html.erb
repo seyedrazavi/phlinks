@@ -24,13 +24,15 @@
 		  </thead>
 		  <tbody>
 		  	<% n = 0 %>
-			<% @links.each do |link| %>
+			<% @links.page(params[:page] || 1).each do |link| %>
 			<% n += 1 %>
 			<%=render partial: '/links/show', locals: {n: n, link: link, admin_mode: @admin_mode}, cached: !@admin_mode %>
 			<% end %>
 		  </tbody>
 		</table>
 	</div>
+
+	<%= paginate @links %>
 <p><%=link_to 'About', pages_url %></p>
 <p><%=link_to image_tag('valid-rss-rogers.png', alt: "[Valid RSS]", title: "Validate my RSS feed"), "https://validator.w3.org/feed/check.cgi?url=https%3A//phlinks.herokuapp.com/%3Fformat%3Drss" %></p>
 <p><%=link_to image_tag('github.png', alt: "Available on Github", title: "Available on Github"), "https://github.com/seyedrazavi/phlinks" %></p>
