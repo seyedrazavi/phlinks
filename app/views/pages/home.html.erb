@@ -32,7 +32,7 @@
 		</table>
 	</div>
 
-	<%= paginate @link.page(params[:page] || 1) %>
+	<%= paginate @links.page(params[:page] || 1) %>
 <p><%=link_to 'About', pages_url %></p>
 <p><%=link_to image_tag('valid-rss-rogers.png', alt: "[Valid RSS]", title: "Validate my RSS feed"), "https://validator.w3.org/feed/check.cgi?url=https%3A//phlinks.herokuapp.com/%3Fformat%3Drss" %></p>
 <p><%=link_to image_tag('github.png', alt: "Available on Github", title: "Available on Github"), "https://github.com/seyedrazavi/phlinks" %></p>
