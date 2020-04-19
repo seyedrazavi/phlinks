@@ -1,7 +1,7 @@
 class Link < ApplicationRecord
 
 	FETCH_COUNT = 200
-	MIN_IMPACT_FOR_RETWEET = 15
+	MIN_IMPACT_FOR_RETWEET = 5
 
 	validates :title, presence: true
 	validates :url, presence: true
