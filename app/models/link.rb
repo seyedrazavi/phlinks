@@ -63,9 +63,9 @@ class Link < ApplicationRecord
 			)
 	end
 
-	def self.delete_duplicates!
-		Link.find_each{|link| Link.where(["url = ? AND id <> ?", link.url, link.id]).delete_all}
-	end
+	# def self.delete_duplicates!
+	# 	Link.find_each{|link| Link.where(["url = ? AND id <> ?", link.url, link.id]).delete_all}
+	# end
 
 	private
 	
@@ -139,7 +139,7 @@ class Link < ApplicationRecord
 	def self.clean_up!
 		where("created_at < NOW() - INTERVAL '30 days'").delete_all
 		logger.info "Deleted older than 30 days"
-		delete_duplicates!
+		#delete_duplicates!
 		logger.info "Deleted duplicates"
 		logger.info "Updating impact"
 		all_but_deleted.find_each do |link|
@@ -185,12 +185,22 @@ class Link < ApplicationRecord
 	public 
 
 	def update_impact!
-		tweet_hash = Link.fetch_tweet(self.tweet_id)
-		self.quote_count = tweet_hash[:quote_count]
-		self.reply_count = tweet_hash[:reply_count]
-		self.retweet_count = tweet_hash[:retweet_count]
-		self.favorite_count = tweet_hash[:favorite_count]
-		self.save!
+		begin
+			tweet_hash = Link.fetch_tweet(self.tweet_id)
+			self.quote_count = tweet_hash[:quote_count]
+			self.reply_count = tweet_hash[:reply_count]
+			self.retweet_count = tweet_hash[:retweet_count]
+			self.favorite_count = tweet_hash[:favorite_count]
+			self.save!
+		rescue Exception => e 
+			if e.to_s.begins_with("Twitter::Error::NotFound")
+				logger.info("#{self} no longer available so deleting self")
+				self.destroy
+				return
+			else
+				logger.error("Error fetching tweet #{self.tweet_id} becasue #{e}")
+			end
+		end
 	end
 
 	def impact_description
