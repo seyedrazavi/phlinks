@@ -1,6 +1,6 @@
 <% cache_unless admin_mode, link, expires_in: 10.minutes do %>
 <tr>
-	<th scope="row"><%=n%></th>
+	<th scope="row"><a href="https://twitter.com/<%=user_screenname%>/status/<%=tweet_id%>"><%=n%></a></th>
 	<td><a href="<%=link.url%>" target="_link"  data-toggle="tooltip" data-placement="top" title="<%=link.description%>"><%=link.title%></a></td>
 	<td><a href="https://twitter.com/<%=link.user_screenname%>"><%=link.user_name%></a></td>
 	<td><small><%=distance_of_time_in_words_to_now(link.posted_at)%> ago</small></td>
