@@ -8,6 +8,14 @@ class Link < ApplicationRecord
 	validates :user_name, presence: true
 	validates :user_screenname, presence: true
 
+	before_save :calculate_impact
+
+	#:quote_count, :integer
+  	#:reply_count, :integer
+  	#:retweet_count, :integer
+  	#:favorite_count, :integer
+  	#:impact, :integer
+
 	FILTER_OUT_URLS = ["https://twitter.com", # self-reference
 		# low quality
 		"https://curiouscat.me",
@@ -48,7 +56,10 @@ class Link < ApplicationRecord
 		create!(tweet_id: link_hash[:id], title: link_hash[:title], url: link_hash[:url], 
 			posted_at: link_hash[:posted_at], user_name: link_hash[:user_name], 
 			user_screenname: link_hash[:user_screenname], description: link_hash[:full_text],
-			deleted: false)
+			deleted: false,
+			quote_count: link_hash[:quote_count], reply_count: link_hash[:reply_count], 
+			retweet_count: link_hash[:retweet_count], favorite_count: link_hash[:favorite_count])
+			)
 	end
 
 	def self.delete_duplicates!
@@ -133,6 +144,10 @@ class Link < ApplicationRecord
 		rescue
 			return 0
 		end
+	end
+
+	def calculate_impact
+		self.impact = (self.quote_count + self.reply_count + self.retweet_count + self.favorite_count)
 	end
 
 	#
