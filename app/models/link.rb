@@ -186,7 +186,7 @@ class Link < ApplicationRecord
 	public 
 
 	def update_impact!
-		tweet_has = Link.tweet(self.tweet_id)
+		tweet_hash = Link.fetch_tweet(self.tweet_id)
 		self.quote_count = tweet_hash[:quote_count]
 		self.reply_count = tweet_hash[:reply_count]
 		self.retweet_count = tweet_hash[:retweet_count]
