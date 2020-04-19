@@ -195,6 +195,11 @@ class Link < ApplicationRecord
 		rescue Twitter::Error::NotFound
 			logger.info("#{self} no longer available so deleting self")
 			self.destroy
+		rescue Twitter::Error::Forbidden
+			logger.info("#{self} no longer viewable so deleting self")
+			self.destroy
+		rescue Exception
+			logger.error("Unable to fetch #{self}")
 		end
 	end
 
