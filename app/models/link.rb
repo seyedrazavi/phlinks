@@ -142,11 +142,11 @@ class Link < ApplicationRecord
 		#delete_duplicates!
 		logger.info "Deleted duplicates"
 		logger.info "Updating impact"
-		all_but_deleted.where("impact < #{MIN_IMPACT_FOR_RETWEET} && created_at > NOW() - INTERVAL '2 days'").find_each do |link|
+		all_but_deleted.where("impact < #{MIN_IMPACT_FOR_RETWEET} AND created_at > NOW() - INTERVAL '2 days'").find_each do |link|
 			link.update_impact!
 		end
 		logger.info "Clean up older links that have low impact"
-		where("impact < #{MIN_IMPACT_FOR_RETWEET} && created_at < NOW() - INTERVAL '10 days'").delete_all
+		where("impact < #{MIN_IMPACT_FOR_RETWEET} AND created_at < NOW() - INTERVAL '10 days'").delete_all
 		logger.info "Clean up complete"
 	end
 
