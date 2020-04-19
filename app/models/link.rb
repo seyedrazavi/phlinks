@@ -1,7 +1,7 @@
 class Link < ApplicationRecord
 
 	FETCH_COUNT = 200
-	MIN_IMPACT_FOR_RETWEET = 8
+	MIN_IMPACT_FOR_RETWEET = 15
 
 	validates :title, presence: true
 	validates :url, presence: true
@@ -145,6 +145,8 @@ class Link < ApplicationRecord
 		all_but_deleted.find_each do |link|
 			link.update_impact!
 		end
+		logger.info "Clean up older links that have low impact"
+		where("impact < #{MIN_IMPACT_FOR_RETWEET} && created_at < NOW() - INTERVAL '10 days'").delete_all
 		logger.info "Clean up complete"
 	end
 
