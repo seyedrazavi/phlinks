@@ -1,6 +1,7 @@
 class Link < ApplicationRecord
 
 	FETCH_COUNT = 200
+	MIN_IMPACT_FOR_RETWEET =5
 
 	validates :title, presence: true
 	validates :url, presence: true
@@ -98,6 +99,7 @@ class Link < ApplicationRecord
 				elsif FILTER_OUT_TITLES.any?{|f| title.starts_with?(f)}
 					error = "Page title was filtered out"
 				else
+
 					return true, tweet_hash.merge({url: url, title: title})
 				end
 			else
@@ -107,6 +109,7 @@ class Link < ApplicationRecord
 				existing_link.retweet_count = tweet_hash[:retweet_count]
 				existing_link.favorite_count = tweet_hash[:favorite_count]
 				existing_link.save
+				end
 			end
 		end
 		return false, error
@@ -160,6 +163,12 @@ class Link < ApplicationRecord
 
 	def calculate_impact
 		self.impact = (self.quote_count + self.reply_count + self.retweet_count + self.favorite_count)
+		if self.impact >= MIN_IMPACT_FOR_RETWEET
+			begin
+				Link.retweet(self.tweet_id) 
+			rescue
+			end
+		end
 	end
 
 	#
