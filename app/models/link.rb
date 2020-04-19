@@ -144,7 +144,6 @@ class Link < ApplicationRecord
 		logger.info "Updating impact"
 		all_but_deleted.find_each do |link|
 			link.update_impact!
-			put '.'
 		end
 		logger.info "Clean up complete"
 	end
