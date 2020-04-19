@@ -37,7 +37,7 @@ class Link < ApplicationRecord
 	#
 
 	def self.all_but_deleted
-		where({deleted: false}).order('created_at DESC')
+		where({deleted: false}).order('impact DESC, created_at DESC')
 	end
 
 	def self.fetch!(async=true)
@@ -155,6 +155,13 @@ class Link < ApplicationRecord
 	# 
 
 	public 
+
+	def impact_description
+		"Quoted: #{self.quote_count}\n
+		Replies: #{self.reply_count}\n
+		Retweeted: #{self.retweet_count}\n 
+		Favourited: #{self.favorite_count}"
+	end
 
 	def update_title!
 		new_url = Link.resolved_url(self.url)
