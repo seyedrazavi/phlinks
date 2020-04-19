@@ -138,6 +138,15 @@ class Link < ApplicationRecord
 
 	def self.clean_up!
 		where("created_at < NOW() - INTERVAL '30 days'").delete_all
+		logger.info "Deleted older than 30 days"
+		delete_duplicates!
+		logger.info "Deleted duplicates"
+		logger.info "Updating impact"
+		all_but_deleted.find_each do |link|
+			link.update_impact!
+			put '.'
+		end
+		logger.info "Clean up complete"
 	end
 
 	def self.fetch_tweet(id)
@@ -175,6 +184,15 @@ class Link < ApplicationRecord
 	# 
 
 	public 
+
+	def update_impact!
+		tweet_has = Link.tweet(self.tweet_id)
+		self.quote_count = tweet_hash[:quote_count]
+		self.reply_count = tweet_hash[:reply_count]
+		self.retweet_count = tweet_hash[:retweet_count]
+		self.favorite_count = tweet_hash[:favorite_count]
+		self.save!
+	end
 
 	def impact_description
 		"Quoted: #{self.quote_count}\n
