@@ -5,12 +5,12 @@
 	<td><a href="https://twitter.com/<%=link.user_screenname%>"><%=link.user_name%></a></td>
 	<td><small><%=distance_of_time_in_words_to_now(link.posted_at)%> ago</small></td>
 	<td>
-		<%=link_to image_tag('pocket.png', alt: '[Add to Pocket]', title: 'Add to Pocket'), pocket_add_url(url: link.url, title: link.title) %>
-	</td>
-	<td>
 		<a href="#" data-toggle="tooltip" data-placement="top" title="<%=link.impact_description%>">
 			<%=link.impact%>
 		</a>
+	</td>
+	<td>
+		<%=link_to image_tag('pocket.png', alt: '[Add to Pocket]', title: 'Add to Pocket'), pocket_add_url(url: link.url, title: link.title) %>
 	</td>
 	<% if admin_mode %>
 	<td><%= link_to "&#9998;".html_safe, edit_link_path(link) %></td>
