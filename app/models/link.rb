@@ -207,10 +207,22 @@ class Link < ApplicationRecord
 
 	def impact_description
 		s = ""
+		begin
 		s = s + "Quoted: #{self.quote_count}" if self.quote_count > 0
+		rescue
+		end
+		begin
 		s = s + "Replies: #{self.reply_count}\n" if self.reply_count > 0
+		rescue
+		end
+		begin
 		s = s + "Retweeted: #{self.retweet_count}\n " if self.retweet_count > 0
+		rescue
+		end
+		begin
 		s = s + "Favourited: #{self.favorite_count}" if self.favorite_count > 0
+		rescue
+		end
 		s = "No impact yet" if s.blank?
 		s
 	end
