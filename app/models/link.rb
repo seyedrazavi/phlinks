@@ -143,6 +143,11 @@ class Link < ApplicationRecord
 		tweet_to_hash(tweet)
 	end
 
+	def self.retweet(id)
+		tweet = TWITTER.status(id)
+		TWITTER.retweet tweet
+	end
+
 	private
 
 	def self.convert_to_int(str)
