@@ -100,6 +100,13 @@ class Link < ApplicationRecord
 				else
 					return true, tweet_hash.merge({url: url, title: title})
 				end
+			else
+				existing_link = Link.where({url: url}).first
+				existing_link.quote_count = tweet_hash[:quote_count]
+				existing_link.reply_count = tweet_hash[:reply_count]
+				existing_link.retweet_count = tweet_hash[:retweet_count]
+				existing_link.favorite_count = tweet_hash[:favorite_count]
+				existing_link.save
 			end
 		end
 		return false, error
