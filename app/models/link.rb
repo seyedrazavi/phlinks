@@ -192,14 +192,9 @@ class Link < ApplicationRecord
 			self.retweet_count = tweet_hash[:retweet_count]
 			self.favorite_count = tweet_hash[:favorite_count]
 			self.save!
-		rescue Exception => e 
-			if e.to_s.begins_with("Twitter::Error::NotFound")
-				logger.info("#{self} no longer available so deleting self")
-				self.destroy
-				return
-			else
-				logger.error("Error fetching tweet #{self.tweet_id} becasue #{e}")
-			end
+		rescue Twitter::Error::NotFound
+			logger.info("#{self} no longer available so deleting self")
+			self.destroy
 		end
 	end
 
