@@ -118,6 +118,12 @@ class Link < ApplicationRecord
 		where("created_at < NOW() - INTERVAL '30 days'").delete_all
 	end
 
+	def self.fetch_tweet(id)
+		tweet = TWITTER.status(id)
+		puts tweet 
+		tweet_to_hash(tweet)
+	end
+
 	#
 	# Member functions
 	# 
