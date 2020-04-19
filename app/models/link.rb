@@ -58,7 +58,7 @@ class Link < ApplicationRecord
 			user_screenname: link_hash[:user_screenname], description: link_hash[:full_text],
 			deleted: false,
 			quote_count: link_hash[:quote_count], reply_count: link_hash[:reply_count], 
-			retweet_count: link_hash[:retweet_count], favorite_count: link_hash[:favorite_count])
+			retweet_count: link_hash[:retweet_count], favorite_count: link_hash[:favorite_count]
 			)
 	end
 
