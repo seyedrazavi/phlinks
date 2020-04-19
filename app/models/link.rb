@@ -109,7 +109,6 @@ class Link < ApplicationRecord
 				existing_link.retweet_count = tweet_hash[:retweet_count]
 				existing_link.favorite_count = tweet_hash[:favorite_count]
 				existing_link.save
-				end
 			end
 		end
 		return false, error
