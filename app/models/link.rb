@@ -111,7 +111,9 @@ class Link < ApplicationRecord
 
 	def self.tweet_to_hash(tweet)
 		{id: tweet.id, full_text: tweet.full_text, posted_at: tweet.created_at.to_s, 
-				user_name: tweet.user.name, user_screenname: tweet.user.screen_name}
+		user_name: tweet.user.name, user_screenname: tweet.user.screen_name,
+		quote_count: tweet.quote_count || 0, reply_count: tweet.reply_count || 0, 
+		retweet_count: tweet.retweet_count || 0, favorite_count: tweet.favorite_count || 0}
 	end
 
 	def self.clean_up!
@@ -120,7 +122,6 @@ class Link < ApplicationRecord
 
 	def self.fetch_tweet(id)
 		tweet = TWITTER.status(id)
-		puts tweet 
 		tweet_to_hash(tweet)
 	end
 
