@@ -115,12 +115,12 @@ class Link < ApplicationRecord
 	def self.fetch_tweets
 		tweets = []
 		last_link = Link.order('created_at DESC').first
-		timeline_options = {count: FETCH_COUNT, user: LIST_USER_ID}
+		timeline_options = {count: FETCH_COUNT, user: LIST_USER_ID.to_i}
 		if last_link
 			timeline_options[since_id: last_link.tweet_id]
 		end
 
-		TWITTER.list_timeline(LIST_ID, timeline_options).each do |tweet|
+		TWITTER.list_timeline(LIST_ID.to_i, timeline_options).each do |tweet|
 			logger.debug tweet
 			tweets << tweet
 		end
