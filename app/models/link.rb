@@ -138,8 +138,8 @@ class Link < ApplicationRecord
 	end
 
 	def self.clean_up!
-		where("created_at < NOW() - INTERVAL '30 days'").delete_all
-		logger.info "Deleted older than 30 days"
+		where("created_at < NOW() - INTERVAL '10 days'").delete_all
+		logger.info "Deleted older than 10 days"
 		#delete_duplicates!
 		logger.info "Deleted duplicates"
 		logger.info "Updating impact"
@@ -147,7 +147,7 @@ class Link < ApplicationRecord
 			link.update_impact!
 		end
 		logger.info "Clean up older links that have low impact"
-		where("impact < #{MIN_IMPACT_FOR_RETWEET} AND created_at < NOW() - INTERVAL '10 days'").delete_all
+		where("impact < #{MIN_IMPACT_FOR_RETWEET} AND created_at < NOW() - INTERVAL '2 days'").delete_all
 		logger.info "Clean up complete"
 	end
 
