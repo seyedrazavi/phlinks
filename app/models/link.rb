@@ -133,7 +133,8 @@ class Link < ApplicationRecord
 		{id: tweet.id, full_text: tweet.full_text, posted_at: tweet.created_at.to_s, 
 		user_name: tweet.user.name, user_screenname: tweet.user.screen_name,
 		quote_count: convert_to_int(tweet.quote_count), reply_count: convert_to_int(tweet.reply_count), 
-		retweet_count: convert_to_int(tweet.retweet_count), favorite_count: convert_to_int(tweet.favorite_count)}
+		retweet_count: convert_to_int(tweet.retweet_count), favorite_count: convert_to_int(tweet.favorite_count),
+		retweeted: tweet.retweeted_status || false}
 	end
 
 	def self.clean_up!
