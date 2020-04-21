@@ -1,6 +1,6 @@
 <div class="home">
 	<h1>Links from <a href="https://twitter.com/i/lists/<%=LIST_ID%>">philosophy Twitter</a> <%=link_to image_tag('rss.png'), root_url(:format => :rss)%></h1>
-	<p class="lead"><% if @links.any? %><%=@links.count%> links. Last refreshed <%=@links.first.created_at%><% end %></p>
+	<p class="lead"><% if @links.any? %><%=@links.count%> links. Last refreshed <%=Link.order("created_at ASC").limit(1).created_at%><% end %></p>
 	<p><%=link_to image_tag('twitter.png'), "https://twitter.com/philosophylinks" %></p>
 	<% flash.each do |key, value| %>
         <div class="<%= flash_class(key) %>">
