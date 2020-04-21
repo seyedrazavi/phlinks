@@ -37,6 +37,10 @@ class Link < ApplicationRecord
 	# CLass functions
 	#
 
+	def self.last_fetched
+		Link.where({deleted: false}).order("created_at DESC").limit(1).first.created_at
+	end
+
 	def self.all_but_deleted
 		where({deleted: false}).order('impact DESC, created_at DESC')
 	end
