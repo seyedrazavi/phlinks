@@ -167,7 +167,7 @@ class Link < ApplicationRecord
 	end
 
 	def self.update_all_not_deleted!
-		find_each(:conditions => "deleted = 0").each{|link| link.touch; link.save }
+		where({deleted: false}).find_each{|link| link.touch; link.save }
 	end
 
 	private
