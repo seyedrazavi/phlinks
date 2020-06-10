@@ -16,6 +16,7 @@ class Link < ApplicationRecord
   	#:retweet_count, :integer
   	#:favorite_count, :integer
   	#:impact, :integer
+  	#:order_score, :float
 
 	FILTER_OUT_URLS = ["https://twitter.com", # self-reference
 		# low quality
@@ -42,7 +43,7 @@ class Link < ApplicationRecord
 	end
 
 	def self.all_but_deleted
-		where({deleted: false}).order('impact DESC, created_at DESC')
+		where({deleted: false}).order('order_score DESC, created_at DESC')
 	end
 
 	def self.fetch!(async=true)
@@ -165,6 +166,10 @@ class Link < ApplicationRecord
 		TWITTER.retweet tweet
 	end
 
+	def self.update_all_order_scores!
+		find_each(:conditions => "deleted = 0").each{|link| link.update_order_score!}
+	end
+
 	private
 
 	def self.convert_to_int(str)
@@ -208,6 +213,7 @@ class Link < ApplicationRecord
 		rescue Exception => e
 			logger.error("Unable to fetch #{self} because #{e.class}")
 		end
+		update_order_score!
 	end
 
 	def impact_description
@@ -230,6 +236,16 @@ class Link < ApplicationRecord
 		end
 		s = "No impact yet" if s.blank?
 		s
+	end
+
+	def update_order_score!
+		if self.impact.nil?
+			self.order_score = 0.0
+		else
+			t = (Time.now.to_date - self.created_at.to_date).to_i
+			self.order_score = self.impact.to_f - (self.impact * (t / 10.0))
+		end
+		save!
 	end
 
 	def update_title!
