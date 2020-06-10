@@ -166,8 +166,8 @@ class Link < ApplicationRecord
 		TWITTER.retweet tweet
 	end
 
-	def self.update_all_order_scores!
-		find_each(:conditions => "deleted = 0").each{|link| link.update_order_score!}
+	def self.update_all_not_deleted!
+		find_each(:conditions => "deleted = 0").each{|link| link.touch; link.save }
 	end
 
 	private
@@ -182,6 +182,8 @@ class Link < ApplicationRecord
 
 	def calculate_impact
 		self.impact = (self.quote_count + self.reply_count + self.retweet_count + self.favorite_count)
+		t = (Time.now.to_date - self.created_at.to_date).to_i
+		self.order_score = self.impact.to_f - (self.impact * (t / 10.0))
 		if self.impact >= MIN_IMPACT_FOR_RETWEET
 			begin
 				Link.retweet(self.tweet_id) 
@@ -213,7 +215,6 @@ class Link < ApplicationRecord
 		rescue Exception => e
 			logger.error("Unable to fetch #{self} because #{e.class}")
 		end
-		update_order_score!
 	end
 
 	def impact_description
@@ -236,16 +237,6 @@ class Link < ApplicationRecord
 		end
 		s = "No impact yet" if s.blank?
 		s
-	end
-
-	def update_order_score!
-		if self.impact.nil?
-			self.order_score = 0.0
-		else
-			t = (Time.now.to_date - self.created_at.to_date).to_i
-			self.order_score = self.impact.to_f - (self.impact * (t / 10.0))
-		end
-		save!
 	end
 
 	def update_title!

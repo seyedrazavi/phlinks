@@ -3,7 +3,7 @@ task :cleanup => :environment do
   puts "Cleaning up old links..."
   Link.clean_up!
   puts "Reevaluating order scores..."
-  Link.update_all_order_scores!
+  Link.update_all_not_deleted!
   puts "done."
 end
 
