@@ -182,7 +182,7 @@ class Link < ApplicationRecord
 
 	def calculate_impact
 		self.impact = (self.quote_count + self.reply_count + self.retweet_count + self.favorite_count)
-		t = (Time.now.to_date - self.created_at.to_date).to_i
+		t = self.created_at.nil? ? 0 : (Time.now.to_date - self.created_at.to_date).to_i
 		self.order_score = self.impact.to_f - (self.impact * (t / 10.0))
 		if self.impact >= MIN_IMPACT_FOR_RETWEET
 			begin
