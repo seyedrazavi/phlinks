@@ -72,3 +72,5 @@ gem 'pocket-ruby'
 gem 'kaminari'
 
 gem "actionview", ">= 5.2.4.2"
+
+gem "nokogiri", ">= 1.12.5"
