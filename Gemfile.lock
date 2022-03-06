@@ -230,7 +230,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sidekiq (6.3.1)
+    sidekiq (6.4.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
@@ -301,7 +301,7 @@ DEPENDENCIES
   rails (~> 5.2.4)
   redis (~> 4.5.1)
   sass-rails (~> 5.0)
-  sidekiq (~> 6.3.1)
+  sidekiq (~> 6.4.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
