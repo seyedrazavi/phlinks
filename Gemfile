@@ -61,7 +61,7 @@ gem "figaro", "~> 1.2.0"
 
 gem "pismo", "~> 0.7.4"
 
-gem "sidekiq", "~> 6.4.0"
+gem "sidekiq", "~> 7.1.3"
 
 gem "redis", "~> 4.5.1"
 
